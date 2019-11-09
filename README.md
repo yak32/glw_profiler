@@ -4,7 +4,7 @@ Minimalistic profiler for C++ projects.
 Header-only, cross-platform and compact profiler in 250 lines.
 
 # Usage
-Just drop the header (glw_profiler.h) into your C++ project and include it into a source file
+Just drop the headers (glw_profiler.h and glw_json.h) into your C++ project and include it into a source file
 
 [![ScreenShot](/../screenshots/glw_profiler.png)](/../screenshots/glw_profiler.png)
 
