@@ -33,7 +33,7 @@ jobs:
     - name: install lcov
       run: sudo apt-get install lcov
     - name: generate coverage info
-      run: lcov --capture --directory ./  --output-file temp.info --no-external; lcov --remove temp.info '/usr/include/*' '*tests*'  '*gtests*'  -o coverage.info
+      run: lcov --capture --directory ./  --output-file temp.info --no-external; lcov --remove temp.info '/usr/include/*' '*tests*'  '*gtests*' '*glw_json.h*'  -o coverage.info
     - name: coveralls
       uses: coverallsapp/github-action@master
       with:
