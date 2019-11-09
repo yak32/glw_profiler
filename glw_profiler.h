@@ -119,15 +119,6 @@ public:
 		return json::save_object_to_file(filename, obj) == json::JSON_OK;
 	}
 
-	void begin_frame() {
-		std::lock_guard<std::recursive_mutex> lock(_mutex);
-	};
-
-	bool end_frame() {
-		std::lock_guard<std::recursive_mutex> lock(_mutex);
-		return true;
-	};
-
 	counter_t add(const char* name, const char* category = 0, bool per_frame = false) {
 		std::lock_guard<std::recursive_mutex> lock(_mutex);
 		_counters.push_back(new Counter(name, category));

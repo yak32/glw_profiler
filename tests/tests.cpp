@@ -113,6 +113,7 @@ TEST(ProfilerTest, ProfilerSaveTracesSucceeded) {
 	Profiler profiler;
 
 	// act
+	profiler.on_thread_started("MainThread");
 	profiler.start_profiling();
 	{
 		GLW_PROFILE_FUNC(profiler, __FUNCTION__);
