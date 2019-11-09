@@ -10,8 +10,17 @@
 	],
  	"build_systems":[
 	 {
+		"linux":
+		{
+			"file_regex": "^(.*?):([0-9]+):?([0-9]+)?:? .*?[a-z]+:(.*)$"
+		},
+		"osx":
+		{
+			"file_regex": "^(.*?):([0-9]+):?([0-9]+)?:.*error:(.*)$"
+		},
+
 	 	"name": "glw_profiler",
-		"shell_cmd": "cmake --build .",
+		"shell_cmd": "cmake --build . --target install",
 		"file_regex": "^[ .\\\\/]*([a-zA-Z]?:?[\\w.\\\\/]+)[()]([0-9]+)[)]([0-9]+)?:?(.*)$",
 		"working_dir": "${project_path}/build",
 		"selector": "source.c, source.c++",
@@ -20,10 +29,11 @@
 			{
 				"name": "project",
 				"selector": "source.c, source.c++",
-				"shell_cmd": "cmake -G \"Visual Studio 15 2017\" -B$project_path/build -H$project_path"
+				"shell_cmd": "cmake -B$project_path/build -H$project_path"
 			},
 	        {
-			    "shell_cmd": "ctest -VV",
+			    "shell_cmd": "./install/tests",
+			    "working_dir": "${project_path}",
 			    "name": "run",
 			    "file_regex": "^[.\\\\/]*([A-Z]?:?[\\w.\\\\/]+)[:]([0-9]+)[:]([0-9]+)?:?(.*)$",
 			    "selector": "source.c, source.c++"

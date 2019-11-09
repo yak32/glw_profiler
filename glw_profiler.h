@@ -48,7 +48,7 @@ struct Trace {
 	timestamp_t ts;  // The tracing clock timestamp of the event. The timestamps are provided at
 					 // microsecond granularity.
 	timestamp_t pid; // The process ID for the process that output this event.
-	size_t tid;		 // The thread ID for the thread that output this event.
+	uint32_t 	tid;		 // The thread ID for the thread that output this event.
 	const char* ph;  // The event type
 	TraceArgs* args;
 };
@@ -75,10 +75,7 @@ public:
 	typedef size_t counter_t;
 
 public:
-	Profiler() : _tick{}, _mem_frame_time{}, _time_frame{} {
-		_fps = 0;
-		_fps = 0.0f;
-		_frame_count = 0;
+	Profiler(){
 		_started = false;
 	};
 
@@ -124,14 +121,10 @@ public:
 
 	void begin_frame() {
 		std::lock_guard<std::recursive_mutex> lock(_mutex);
-		_time_frame = std::chrono::duration_cast<duration>(now() - _time_begin_frame);
-		_time_begin_frame = now();
 	};
 
 	bool end_frame() {
 		std::lock_guard<std::recursive_mutex> lock(_mutex);
-		_frame_count++;
-		_frame_count = 0;
 		return true;
 	};
 
@@ -171,7 +164,7 @@ public:
 	size_t traces_count() const { return _traces.size();}
 	const Trace& trace(size_t i) const { return _traces[i];}
 protected:
-	Trace& add_trace_event(char* type, const char* name, const char* categories = "") {
+	Trace& add_trace_event(const char* type, const char* name, const char* categories = "") {
 		_traces.resize(_traces.size() + 1);
 		Trace& t = _traces.back();
 		t.name = name;
@@ -193,13 +186,6 @@ protected:
 
 protected:
 	counters_t _counters;
-	time_point _time_begin_frame; // time of frame begin
-	duration _time_frame;		  // full time for frame
-	size_t _frame_count;		  // count of frames
-	float _fps;
-
-	duration _tick;
-	time_point _mem_frame_time;
 	traces_t _traces;
 
 	bool _started = false;
