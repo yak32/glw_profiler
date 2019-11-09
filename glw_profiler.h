@@ -22,12 +22,12 @@
 
 // enable this for profiling
 #define GLW_PROFILE_FUNC(profiler, name)                                                           \
-	static glw_profiler::Profiler::counter_t _fc_##name = (profiler).add(name, "", false);         \
-	glw_profiler::ProfileFunc __glw_profiler_profile_func__(profiler, _fc_##name);
+	static glw_counter_t _fc_##name = (profiler).add(name, "", false);         \
+	glw_ProfileFunc __glw_profiler_profile_func__(profiler, _fc_##name);
 
 #define GLW_PROFILE_CATEGORY_FUNC(profiler, name, categories)                                      \
-	static glw_profiler::Profiler::counter_t _fc_##name = (profiler).add(name, categories, false); \
-	glw_profiler::ProfileFunc __glw_profiler_profile_func__(profiler, _fc_##name);
+	static glw_counter_t _fc_##name = (profiler).add(name, categories, false); \
+	glw_ProfileFunc __glw_profiler_profile_func__(profiler, _fc_##name);
 
 #define GLW_PROFILER_THREAD(profiler, name) (profiler).on_thread_started(name)
 
@@ -91,20 +91,20 @@ public:
 				delete t.args;
 	}
 
-	void Profiler::start_profiling() {
+	void start_profiling() {
 		std::lock_guard<std::recursive_mutex> lock(_mutex);
 		assert(!_started && "tracing already started");
 		_tracing_start = clock::now();
 		_started = true;
 	}
 
-	void Profiler::stop_profiling() {
+	void stop_profiling() {
 		std::lock_guard<std::recursive_mutex> lock(_mutex);
 		assert(_started && "tracing already stopped");
 		_started = false;
 	}
 
-	void Profiler::on_thread_started(const char* thread_name) {
+	void on_thread_started(const char* thread_name) {
 		std::lock_guard<std::recursive_mutex> lock(_mutex);
 		auto& t = add_trace_event("M", "thread_name"); // metadata event
 		t.name = "thread_name";
@@ -170,6 +170,7 @@ public:
 	bool is_started() const { return _started;}
 	size_t traces_count() const { return _traces.size();}
 	const Trace& trace(size_t i) const { return _traces[i];}
+
 protected:
 	Trace& add_trace_event(char* type, const char* name, const char* categories = "") {
 		_traces.resize(_traces.size() + 1);
@@ -211,27 +212,27 @@ protected:
 
 class ProfileFunc {
 public:
-	ProfileFunc(Profiler& p, Profiler::counter_t counter) : _profiler(p) {
+	ProfileFunc(Profiler& p, counter_t counter) : _profiler(p) {
 		_counter = counter;
 		p.start(_counter);
 	};
 	~ProfileFunc() { _profiler.stop(_counter); };
 
 private:
-	Profiler::counter_t _counter;
+	counter_t _counter;
 	Profiler& _profiler;
 };
 } // glw_profiler
 
 namespace json {
 
-template <class T> bool serialize(T& t, glw_profiler::TraceArgs& v) {
+template <class T> bool serialize(T& t, glw_TraceArgs& v) {
 	bool c = true;
 	c = c & SERIALIZE(name);
 	return c;
 }
 
-template <class T> bool serialize(T& t, glw_profiler::Trace& v) {
+template <class T> bool serialize(T& t, glw_Trace& v) {
 	bool c = true;
 	c = c & SERIALIZE(args);
 	c = c & SERIALIZE(cat);
@@ -243,7 +244,7 @@ template <class T> bool serialize(T& t, glw_profiler::Trace& v) {
 	return c;
 }
 
-template <class T> bool serialize(T& t, glw_profiler::TraceObject& v) {
+template <class T> bool serialize(T& t, glw_TraceObject& v) {
 	bool c = true;
 	c = c & SERIALIZE(displayTimeUnit);
 	c = c & SERIALIZE(traceEvents);
