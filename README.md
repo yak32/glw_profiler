@@ -1,7 +1,7 @@
 # glw_profiler  ![](https://github.com/yak32/glw_profiler/workflows/status/badge.svg) [![Coverage Status](https://coveralls.io/repos/github/yak32/glw_profiler/badge.svg)](https://coveralls.io/github/yak32/glw_profiler)
 Minimalistic profiler for C++ projects.
 
-Header-only, cross-platform and compact profiler in 250 lines.
+Header-only, cross-platform and compact profiler in 250 lines of code.
 
 # Usage
 Just drop the headers (glw_profiler.h and glw_json.h) into your C++ project and include it into a source file
@@ -37,14 +37,13 @@ cmake --build . --target install
 
 ### Example
 ```c++
-#include "glw_profiler.h"
+#include "../glw_profiler.h"
 
 using namespace glw_profiler;
 
-#include "glw_profiler.h"
 Profiler profiler;
 
-#define METHOD() GLW_PROFILE_FUNC(g_profiler, __FUNCTION__)
+#define METHOD() GLW_PROFILE_FUNC(profiler, __FUNCTION__)
 
 float func(){
 	METHOD();
@@ -63,6 +62,7 @@ int main(){
 	profiler.save_traces("traces.json");
 	return 1;
 }
+
 ```
 ### Dependencies
  C++ 11, standard library, [glw_json](https://github.com/yak32/glw_imgui) (included)

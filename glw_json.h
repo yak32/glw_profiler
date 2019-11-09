@@ -404,7 +404,7 @@ bool save_container(std::ostream& out, iterator begin, iterator end, int tabs) {
 		save(out, *i, tabs + 1);
 	}
 	out << ']';
-	return out.fail();
+	return !out.fail();
 }
 template <typename T, typename A> bool save(std::ostream& out, std::vector<T, A>& t, int tabs) {
 	return save_container(out, t.begin(), t.end(), tabs);
@@ -446,8 +446,7 @@ template <typename T> int save_object_to_stream(T& t, std::ostream& out) {
 template <typename T> int save_object_to_file(const char* filename, T& t) {
 	try {
 		std::ofstream out(filename);
-		if (!json::save_object_to_stream(t, out))
-			return JSON_FAIL;
+		return json::save_object_to_stream(t, out);
 	}
 	catch (std::exception& e) {
 		GLW_UNUSED(e);

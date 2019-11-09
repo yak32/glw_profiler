@@ -1,11 +1,10 @@
-#include "glw_profiler.h"
+#include "../glw_profiler.h"
 
 using namespace glw_profiler;
 
-#include "glw_profiler.h"
 Profiler profiler;
 
-#define METHOD() GLW_PROFILE_FUNC(g_profiler, __FUNCTION__)
+#define METHOD() GLW_PROFILE_FUNC(profiler, __FUNCTION__)
 
 float func(){
 	METHOD();
@@ -16,11 +15,11 @@ float func(){
 }
 
 int main(){
-	profiler.start_tracing();
+	profiler.start_profiling();
 
 	func();
 
-	profiler.stop_tracing();
+	profiler.stop_profiling();
 	profiler.save_traces("traces.json");
 	return 1;
 }

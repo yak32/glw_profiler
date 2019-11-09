@@ -13,6 +13,8 @@ jobs:
       run: mkdir build; cd build; cmake -DCMAKE_BUILD_TYPE=COVERAGE ..
     - name: build
       run: cd build; cmake --build . --target install
+    - name: example
+      run: ./install/example
     - name: test
       run: ./install/tests
 
@@ -48,6 +50,8 @@ jobs:
       run: mkdir build; cd build; cmake ..
     - name: build
       run: cd build; cmake --build . --target install
+    - name: example
+      run: ./install/example.exe
     - name: test
       run: ./install/tests.exe
 
@@ -61,6 +65,8 @@ jobs:
       run: mkdir build; cd build; cmake ..
     - name: build
       run: cd build; cmake --build . --target install
+    - name: example
+      run: ./install/example
     - name: test
       run: ./install/tests
 
