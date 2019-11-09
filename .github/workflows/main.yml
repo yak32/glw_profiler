@@ -6,7 +6,7 @@ jobs:
   build_on_ubuntu:
 
     runs-on: ubuntu-latest
-    
+
     steps:
     - uses: actions/checkout@v1
     - name: configure
@@ -15,11 +15,11 @@ jobs:
       run: cd build; cmake --build . --target install
     - name: test
       run: ./install/tests
-  
+
   coverage_on_ubuntu:
 
     runs-on: ubuntu-latest
-    
+
     steps:
     - uses: actions/checkout@v1
     - name: configure
@@ -36,12 +36,12 @@ jobs:
       uses: coverallsapp/github-action@master
       with:
         github-token: ${{ secrets.github_token }}
-        path-to-lcov: ./coverage.info        
-  
+        path-to-lcov: ./coverage.info
+
   build_on_windows:
 
-    runs-on: windows-latest
-    
+    runs-on: windows-2016
+
     steps:
     - uses: actions/checkout@v1
     - name: configure
@@ -50,11 +50,11 @@ jobs:
       run: cd build; cmake --build . --target install
     - name: test
       run: ./install/tests.exe
-      
+
   build_on_macOS:
 
     runs-on: macOS-latest
-    
+
     steps:
     - uses: actions/checkout@v1
     - name: configure
