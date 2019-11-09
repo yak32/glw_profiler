@@ -27,6 +27,14 @@ cmake --build . --target install
 ```
 (use Git Bash on Windows)
 
+### Prepare, view and analyze profiling results
+
+* Instrument your code with GLW_PROFILE_FUNC macro
+* Run your app
+* Open chrome://tracing in Chrome
+* Load json file with results of tracing
+
+
 ### Example
 ```c++
 #include "glw_profiler.h"
