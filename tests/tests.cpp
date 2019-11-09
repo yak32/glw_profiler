@@ -98,7 +98,7 @@ TEST(ProfilerTest, ProfilerFunctionTraceCompleted) {
 		GLW_PROFILE_FUNC(profiler, __FUNCTION__);
 	}
 	// check
-	
+
 	EXPECT_TRUE(profiler.traces_count()==2);
 	EXPECT_TRUE(strcmp(profiler.trace(0).name, __FUNCTION__)==0);
 	EXPECT_TRUE(strcmp(profiler.trace(0).ph, "B")==0);
@@ -106,4 +106,18 @@ TEST(ProfilerTest, ProfilerFunctionTraceCompleted) {
 	EXPECT_TRUE(strcmp(profiler.trace(1).name, __FUNCTION__)==0);
 	EXPECT_TRUE(strcmp(profiler.trace(1).ph, "E")==0);
 	EXPECT_TRUE(profiler.trace(1).ts != 0);
+}
+
+TEST(ProfilerTest, ProfilerSaveTracesSucceeded) {
+	// set
+	Profiler profiler;
+
+	// act
+	profiler.start_profiling();
+	{
+		GLW_PROFILE_FUNC(profiler, __FUNCTION__);
+	}
+	// check
+	EXPECT_TRUE(profiler.save_traces("traces.json"));
+
 }

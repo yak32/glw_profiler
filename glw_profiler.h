@@ -111,12 +111,12 @@ public:
 
 	// save traces into json file
 	bool save_traces(const char* filename) {
-		TraceObject o;
+		TraceObject obj;
 		{
 			std::lock_guard<std::recursive_mutex> lock(_mutex);
-			o.traceEvents.swap(_traces);
+			obj.traceEvents.swap(_traces);
 		}
-		return json::save_object_to_file(filename, o);
+		return json::save_object_to_file(filename, obj) == json::JSON_OK;
 	}
 
 	void begin_frame() {
