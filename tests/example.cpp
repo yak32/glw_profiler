@@ -21,5 +21,5 @@ int main(){
 
 	profiler.stop_profiling();
 	profiler.save_traces("traces.json");
-	return 1;
+	return 0;
 }
