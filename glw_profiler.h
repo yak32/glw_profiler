@@ -93,6 +93,7 @@ public:
 		assert(!_started && "tracing already started");
 		_tracing_start = clock::now();
 		_started = true;
+		size_t size = sizeof(Trace);
 	}
 
 	void stop_profiling() {

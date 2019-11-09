@@ -69,6 +69,7 @@ int main(){
 
 ### Performance
 Traces are collected in memory, saved after profiling into a json file.
+Size of a trace structure is 28 bytes (VS 2017, 32bit build)
 
 ### Tests
  Run cmake on CMakeLists.txt in tests folder.
