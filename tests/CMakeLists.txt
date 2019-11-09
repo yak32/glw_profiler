@@ -12,5 +12,6 @@ ENDIF()
 ADD_EXECUTABLE (tests tests.cpp )
 ADD_DEPENDENCIES(tests googletest)
 ADD_TEST(test1 tests)
+INSTALL(TARGETS tests DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/../install/)
 
 
