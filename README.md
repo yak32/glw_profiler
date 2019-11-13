@@ -65,7 +65,7 @@ int main(){
 
 ```
 ### Dependencies
- C++ 11, standard library, [glw_json](https://github.com/yak32/glw_imgui) (included)
+ C++ 11, standard library, [glw_json](https://github.com/yak32/glw_json) (included)
 
 ### Performance
 Traces are collected in memory, saved after profiling into a json file.
