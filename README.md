@@ -1,4 +1,4 @@
-# glw_profiler  ![](https://github.com/yak32/glw_profiler/workflows/status/badge.svg)[![Coverage Status](https://coveralls.io/repos/github/yak32/glw_profiler/badge.svg?branch=master)](https://coveralls.io/github/yak32/glw_profiler?branch=master)
+# glw_profiler  ![](https://github.com/yak32/glw_profiler/workflows/status/badge.svg) [![Coverage Status](https://coveralls.io/repos/github/yak32/glw_profiler/badge.svg?branch=master)](https://coveralls.io/github/yak32/glw_profiler?branch=master) [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 Minimalistic profiler for C++ projects.
 
 Header-only, cross-platform and compact profiler in 250 lines of code.
